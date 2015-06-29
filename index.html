@@ -17,7 +17,26 @@
 	<script src="js/controllers.js"></script>
 </head>
 <body>
-
-	
+	<nav>
+	<!--bgc-blue-900: El background
+	tc-white: el color del texto-->
+		<div class="bgc-blue-900 tc-white" flex-container="row" flex-align="center center">
+		<!--tamaño de la pantalla: 40% = 4-->
+			<div flex-item="4">
+				<h1 class="fs-display-3 display-block">Posts App</h1>
+				<div flex-item="1">
+					<a href="#">Inicio</a>
+				</div>
+				<div flex-item="1">
+					<a href="#">Crear Post</a>
+				</div>
+			</div>
+		</div>
+	</nav>
+	<div flex-container="row" flex-align="center">
+		<div ng-view  flex-item="9">
+			<p>DEMO</p>
+		</div>
+	</div>
 </body>
 </html>
