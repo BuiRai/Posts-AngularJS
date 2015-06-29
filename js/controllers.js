@@ -9,5 +9,20 @@ angular.module("FinalApp")
 	$scope.posts = Post.query();
 	//Obteniendo los usuarios
 	$scope.users = User.query();
+	$scope.removePost = function(post){
+		Post.delete({id : post.id}, function(data){
+			console.log(data);
+		});
+
+		/*Como regla, realmente no se elimina el post, puesto que se está utilizando una herramienta de pruebas 'JsonPlaceholder'*/
+		/*Un filtro para borrar el arreglo posts, cuando el id que se le pasa a la funcion sea diferente del id de un elemento del arreglo devolvera true y no hara nada, si devuelve false lo elimina del arreglo oroginal*/
+		$scope.posts = $scope.posts.filter(function(element){
+			return element.id !== post.id;
+		});
+	}
 	
+})
+.controller("PostController", function($scope, $resource, $routeParams){
+	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
+	$scope.post = Post.get({id : $routeParams.id});
 });
