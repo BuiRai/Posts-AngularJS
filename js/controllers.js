@@ -1,4 +1,5 @@
 angular.module("FinalApp")
+/*Un controlador*/
 .controller("MainController", function($scope, $resource){
 	/*URL de la API: http://jsonplaceholder.typicode.com/posts/:id*/
 	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
@@ -22,7 +23,21 @@ angular.module("FinalApp")
 	}
 	
 })
+
+/*Otro controlador*/
 .controller("PostController", function($scope, $resource, $routeParams){
 	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
 	$scope.post = Post.get({id : $routeParams.id});
+})
+
+/*Otro controlador*/
+.controller("NewPostController", function($scope, $resource){
+	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
+	$scope.post = {};
+	$scope.title = "Crear Post";
+	$scope.savePost = function(){
+		Post.save({data: $scope.post}, function(data){
+			console.log(data);
+		});
+	}
 });
