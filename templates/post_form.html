@@ -5,9 +5,13 @@
 			<!--Título del nuevo post-->
 			<div flex-container="row">
 				<div flex-item>
+					<!--
 					<lx-text-field label="Title">
-						<input type="text" ng-model="post.title">
+						<input type="text" ng-model="post.name">
 					<lx-text-field>
+					-->
+					<label for="nombre">Nombre</label><br>
+					<input id="nombre" type="text" ng-model="post.name"><br>
 				</div>
 			</div>
 			<!--Fín del título del nuevo post-->
@@ -15,15 +19,19 @@
 			<!--Cuerpo del nuevo post-->
 			<div flex-container="row">
 				<div flex-item>
+					<!--
 					<lx-text-field label="Body">
 						<textarea ng-model="post.body"></textarea>
 					<lx-text-field>
+					-->
+					<label for="cuerpo">Cuerpo</label><br>
+					<textarea id="cuerpo" ng-model="post.body"></textarea><br>
 				</div>
 			</div>
 			<!--Fín del cuerpo del nuevo post-->
 		</div>
 
-		<div class="card__actions">
+		<div class="card__actions"><br>
 			<button type="submit" class="btn btn--blue btn--l btn--raised">
 				Guardar
 			</button>

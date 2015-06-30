@@ -1,17 +1,16 @@
 angular.module("FinalApp")
 /*Un controlador*/
-.controller("MainController", function($scope, $resource){
+.controller("MainController", function($scope, $resource, PostResource){
 	/*URL de la API: http://jsonplaceholder.typicode.com/posts/:id*/
-	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
 	User = $resource("http://jsonplaceholder.typicode.com/users/:id", {id: "@id"});
 
 	// query() -> GET/posts -> Devuelve un arreglo de posts
 	//Obteniendo los posts
-	$scope.posts = Post.query();
+	$scope.posts = PostResource.query();
 	//Obteniendo los usuarios
 	$scope.users = User.query();
 	$scope.removePost = function(post){
-		Post.delete({id : post.id}, function(data){
+		PostResource.delete({id : post.id}, function(data){
 			console.log(data);
 		});
 
@@ -25,18 +24,24 @@ angular.module("FinalApp")
 })
 
 /*Otro controlador*/
-.controller("PostController", function($scope, $resource, $routeParams){
-	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
-	$scope.post = Post.get({id : $routeParams.id});
+.controller("PostController", function($scope, PostResource, $routeParams, $location){
+	$scope.title = "Editar Post";
+	$scope.post = PostResource.get({id : $routeParams.id});
+	$scope.savePost = function(){
+		PostResource.update({id : $scope.post.id}, {data: $scope.post}, function(data){
+			console.log(data);
+			/*Redigir a otra página*/
+			$location.path("/post/"+$scope.post.id);
+		});
+	}
 })
 
 /*Otro controlador*/
-.controller("NewPostController", function($scope, $resource){
-	Post = $resource("http://jsonplaceholder.typicode.com/posts/:id", {id: "@id"});
+.controller("NewPostController", function($scope, PostResource){
 	$scope.post = {};
 	$scope.title = "Crear Post";
 	$scope.savePost = function(){
-		Post.save({data: $scope.post}, function(data){
+		PostResource.save({data: $scope.post}, function(data){
 			console.log(data);
 		});
 	}
